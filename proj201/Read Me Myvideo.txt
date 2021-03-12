@@ -1,0 +1,6 @@
+This code takes the video file's name and error rate as inputs from the user.
+The bits of the video frames will be changed as much as error rate permits (Higher error rate means more corruption, more changes of the bits).
+Written video file is the corrupted version of the input video file with respect to error rate.(if error_rate = 0.7 then video file is 70% corrupted)
+You can change output video file's name by changing 'myVideo' to any name in "myVideoFile = VideoWriter('myVideo','MPEG-4');"
+If you erase 'MPEG-4' in "myVideoFile = VideoWriter('myVideo','MPEG-4');" the output video file will be in avi format (by default it is mp4).
+
