@@ -1,0 +1,1 @@
+man cat | grep -A1 -w -e "-n,"
