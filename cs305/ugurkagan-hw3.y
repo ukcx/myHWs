@@ -1,6 +1,6 @@
 %{
 #include <stdio.h>
-#include "hw3.h"
+#include "ugurkagan-hw3.h"
 
 TreeNode * mkEXPR3 ( TreeNode *, TreeNode *, OpType);    
 TreeNode * mkEXPR1 ( TreeValue *, ConstType );   
