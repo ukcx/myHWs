@@ -1,0 +1,59 @@
+%{
+#include "hw3.h"
+#include "ugurkagan-hw3.tab.h" 
+%}
+		int line_count = 1;
+%%
+
+['][^']*[']		{
+				info_str  str;
+				str.value = strdup(yytext);
+				str.line_no = line_count;
+				yylval.str_value = str;
+				return tSTRING;
+			}
+
+["]Get["]		return tGET;
+["]Set["]		return tSET;
+["]Function["]		return tFUNCTION;
+["]Print["]		return tPRINT;
+["]If["]		return tIF;
+["]Return["]		return tRETURN;
+
+["]"+"["]               return tADD;
+["]"-"["]               return tSUB;
+["]"*"["]               return tMUL;
+["]"/"["]               return tDIV;
+["]"++"["]		return tINC;
+["]">"["]		return tGT;
+["]"=="["]		return tEQUALITY;
+["]"--"["]		return tDEC;
+["]"<"["]		return tLT;
+["]"<="["]		return tLEQ;
+["]">="["]		return tGEQ;
+
+
+["][_a-zA-Z][a-zA-Z0-9_]*["]	return tIDENT;
+				
+[0-9]+ |
+-[0-9]+		{
+			info_int info;
+			info.value = atoi(yytext);
+			info.line_no = line_count;
+			yylval.value = info;
+			return tINT;
+		}		
+
+[0-9]+"."[0-9]+	|
+-[0-9]+"."[0-9]+	{	
+				info_real info;
+				info.value = atof(yytext);
+				info.line_no = line_count;
+				yylval.real_value = info;
+				return tREAL; 
+			}
+[ \t]+
+[\n]			{line_count++;} 
+.			return yytext[0];
+
+%%

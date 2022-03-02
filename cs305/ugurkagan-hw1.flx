@@ -1,0 +1,47 @@
+tSTRING	 '('|[^']+')
+tIDENT	\"[_a-zA-Z][_a-zA-Z0-9]*\"
+tNUM	-?[0-9]+\.[0-9]+|-?[0-9]+
+ int numOfLines = 1;
+%%
+\n		numOfLines++;
+,		printf("%d", numOfLines); printf(" tCOMMA\n");
+\"[+]\"		printf("%d", numOfLines); printf(" tPLUS\n");
+\"[*]\"		printf("%d", numOfLines); printf(" tMUL\n");
+\"[+][+]\"	printf("%d", numOfLines); printf(" tINC\n");
+\[		printf("%d", numOfLines); printf(" tLBRAC\n");
+\"[>]\"		printf("%d", numOfLines); printf(" tGT\n");
+\"[>][=]\"	printf("%d", numOfLines); printf(" tGEQ\n");
+\"[=][=]\"	printf("%d", numOfLines); printf(" tEQUALITY\n");
+\"[-]\"		printf("%d", numOfLines); printf(" tMINUS\n");
+\"\/\"		printf("%d", numOfLines); printf(" tDIV\n");
+\"[-][-]\"	printf("%d", numOfLines); printf(" tDEC\n");
+\]		printf("%d", numOfLines); printf(" tRBRAC\n");
+\"[<]\"		printf("%d", numOfLines); printf(" tLT\n");
+\"[<][=]\"	printf("%d", numOfLines); printf(" tLEQ\n");
+\"If\"		printf("%d", numOfLines); printf(" tIF\n");
+\"Get\"		printf("%d", numOfLines); printf(" tGET\n");
+\"Set\"		printf("%d", numOfLines); printf(" tSET\n");
+\"Function\"	printf("%d", numOfLines); printf(" tFUNCTION\n");
+\"Print\"	printf("%d", numOfLines); printf(" tPRINT\n");
+\"For\"		printf("%d", numOfLines); printf(" tFOR\n");
+\"Return\"	printf("%d", numOfLines); printf(" tRETURN\n");
+{tNUM}		printf("%d", numOfLines); printf(" tNUM ("); ECHO; printf(") ("); ECHO; printf(")\n");
+{tIDENT} {	
+	 printf("%d", numOfLines); printf(" tIDENT ");printf("(");
+	 char *withoutQuote = yytext;
+	 withoutQuote = &withoutQuote[1];
+	 printf(withoutQuote);printf(")\n");
+	 }
+{tSTRING} {	
+	  printf("%d", numOfLines); printf(" tSTRING ");printf("(");
+	  char *withoutQuote = yytext;
+	  withoutQuote = &withoutQuote[1];	
+	  printf(withoutQuote); printf(")\n");
+	  }
+.
+%%
+int main()
+{
+  yylex();
+  return(0);
+}
